@@ -4,9 +4,21 @@ import Layout from "../layouts/Layout.astro";
 type Location = { title: string; youtubeId: string };
 
 const locations: Location[] = [
-  { title: "Santa Ponsa", youtubeId: "Z9F_jN6xpFs" },
-  { title: "Paguera", youtubeId: "RejKm2yT3SI" },
-  { title: "Maspalomas", youtubeId: "b7uf9lPsVFo" },
+  {
+    title: "Santa Ponsa",
+    youtubeId: "Z9F_jN6xpFs",
+    weatherUrl: "https://forecast7.com/en/39d502d47/santa-ponsa/",
+  },
+  {
+    title: "Paguera",
+    youtubeId: "RejKm2yT3SI",
+    weatherUrl: "https://forecast7.com/en/39d542d45/peguera/",
+  },
+  {
+    title: "Maspalomas",
+    youtubeId: "b7uf9lPsVFo",
+    weatherUrl: "https://forecast7.com/en/27d76n15d59/maspalomas/",
+  },
 ];
 
 function toYoutubeUrl(location: Location) {
@@ -21,7 +33,16 @@ const location = locations[Math.floor(Math.random() * locations.length)];
 
 <Layout title="Holiday View">
   <main>
-    <h1>Welcome to <span class="text-gradient">{location.title}</span></h1>
+    <div class="location-container">
+      <h1 class="location-title">
+        Welcome to <span class="text-gradient">{location.title}</span>
+      </h1>
+      <a
+        class="weatherwidget-io"
+        href={location.weatherUrl}
+        data-mode="Current"
+        data-theme="dark"></a>
+    </div>
     <iframe
       class="webcam-frame"
       src={toYoutubeUrl(location)}
@@ -40,14 +61,23 @@ const location = locations[Math.floor(Math.random() * locations.length)];
     display: flex;
     flex-direction: column;
   }
-  h1 {
+  .location-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .weatherwidget-io {
+    width: 160px;
+  }
+  .location-title {
+    flex: 1 1 auto;
     font-size: 3rem;
     font-weight: 800;
     margin: 0;
-    color: #999;
+    color: white;
     margin-top: 2rem;
     padding: 2rem;
-    text-align: right;
+    text-align: center;
   }
   .text-gradient {
     background-image: var(--accent-gradient);
@@ -74,4 +104,18 @@ const location = locations[Math.floor(Math.random() * locations.length)];
     }
   }
   document.addEventListener("click", goFullscreen);
+</script>
+
+<script>
+  // See <https://weatherwidget.io>
+  !(function (d, s, id) {
+    var js,
+      fjs = d.getElementsByTagName(s)[0];
+    if (!d.getElementById(id)) {
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://weatherwidget.io/js/widget.min.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }
+  })(document, "script", "weatherwidget-io-js");
 </script>
