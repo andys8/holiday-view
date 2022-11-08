@@ -16,7 +16,7 @@ function toYoutubeUrl(location: Location) {
   );
 }
 
-const location = locations[Math.floor(Math.random() * locations.length)]
+const location = locations[Math.floor(Math.random() * locations.length)];
 ---
 
 <Layout title="Holiday View">
@@ -65,3 +65,16 @@ const location = locations[Math.floor(Math.random() * locations.length)]
     margin: 1rem;
   }
 </style>
+
+<script>
+  function goFullscreen() {
+    if (document?.documentElement?.requestFullscreen) {
+      document.documentElement.requestFullscreen();
+    } else if (document?.documentElement?.webkitRequestFullscreen) {
+      document.documentElement.webkitRequestFullscreen();
+    } else if (document?.documentElement?.msRequestFullscreen) {
+      document.documentElement.msRequestFullscreen();
+    }
+  }
+  document.addEventListener("click", goFullscreen);
+</script>
