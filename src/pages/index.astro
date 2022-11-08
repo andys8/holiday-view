@@ -33,12 +33,12 @@ const location = locations[Math.floor(Math.random() * locations.length)];
 
 <Layout title="Holiday View">
   <main>
-    <div class="location-container">
-      <h1 class="location-title">
+    <div class="header-container">
+      <h1 class="header-title">
         Welcome to <span class="text-gradient">{location.title}</span>
       </h1>
       <a
-        class="weatherwidget-io"
+        class="header-weather weatherwidget-io"
         href={location.weatherUrl}
         data-mode="Current"
         data-theme="dark"></a>
@@ -61,15 +61,15 @@ const location = locations[Math.floor(Math.random() * locations.length)];
     display: flex;
     flex-direction: column;
   }
-  .location-container {
+  .header-container {
     display: flex;
     flex-direction: row;
     align-items: center;
   }
-  .weatherwidget-io {
+  .header-weather {
     width: 320px;
   }
-  .location-title {
+  .header-title {
     flex: 1 1 auto;
     font-size: 3rem;
     font-weight: 800;
