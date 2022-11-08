@@ -1,81 +1,67 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
+import Layout from "../layouts/Layout.astro";
+
+type Location = { title: string; youtubeId: string };
+
+const locations: Location[] = [
+  { title: "Santa Ponsa", youtubeId: "Z9F_jN6xpFs" },
+  { title: "Paguera", youtubeId: "RejKm2yT3SI" },
+  { title: "Maspalomas", youtubeId: "b7uf9lPsVFo" },
+];
+
+function toYoutubeUrl(location: Location) {
+  return (
+    `https://www.youtube.com/embed/${location.youtubeId}` +
+    `?autoplay=1&mute=1&theme=dark&showinfo=0&controls=0`
+  );
+}
+
+const location = locations[Math.floor(Math.random() * locations.length)]
 ---
 
-<Layout title="Welcome to Astro.">
-	<main>
-		<h1>Welcome to <span class="text-gradient">Astro</span></h1>
-		<p class="instructions">
-			To get started, open the directory <code>src/pages</code> in your project.<br />
-			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
-		</p>
-		<ul role="list" class="link-card-grid">
-			<Card
-				href="https://docs.astro.build/"
-				title="Documentation"
-				body="Learn how Astro works and explore the official API docs."
-			/>
-			<Card
-				href="https://astro.build/integrations/"
-				title="Integrations"
-				body="Supercharge your project with new frameworks and libraries."
-			/>
-			<Card
-				href="https://astro.build/themes/"
-				title="Themes"
-				body="Explore a galaxy of community-built starter themes."
-			/>
-			<Card
-				href="https://astro.build/chat/"
-				title="Community"
-				body="Come say hi to our amazing Discord community. ❤️"
-			/>
-		</ul>
-	</main>
+<Layout title="Holiday View">
+  <main>
+    <h1>Welcome to <span class="text-gradient">{location.title}</span></h1>
+    <iframe
+      class="webcam-frame"
+      src={toYoutubeUrl(location)}
+      frameBorder="0"
+      allow="autoplay; encrypted-media"
+      allowFullScreen
+      title="video"
+    >
+    </iframe>
+  </main>
 </Layout>
 
 <style>
-	main {
-		margin: auto;
-		padding: 1.5rem;
-		max-width: 60ch;
-	}
-	h1 {
-		font-size: 3rem;
-		font-weight: 800;
-		margin: 0;
-	}
-	.text-gradient {
-		background-image: var(--accent-gradient);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-size: 400%;
-		background-position: 0%;
-	}
-	.instructions {
-		line-height: 1.6;
-		margin: 1rem 0;
-		border: 1px solid rgba(var(--accent), 25%);
-		background-color: white;
-		padding: 1rem;
-		border-radius: 0.4rem;
-	}
-	.instructions code {
-		font-size: 0.875em;
-		font-weight: bold;
-		background: rgba(var(--accent), 12%);
-		color: rgb(var(--accent));
-		border-radius: 4px;
-		padding: 0.3em 0.45em;
-	}
-	.instructions strong {
-		color: rgb(var(--accent));
-	}
-	.link-card-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
-		gap: 1rem;
-		padding: 0;
-	}
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+  }
+  main {
+    background-color: black;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin: 0;
+    color: #888;
+    padding: 1rem;
+  }
+  .text-gradient {
+    background-image: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 400%;
+    background-position: 0%;
+  }
+  .webcam-frame {
+    flex: 1 1 auto;
+    margin: 1rem;
+  }
 </style>
